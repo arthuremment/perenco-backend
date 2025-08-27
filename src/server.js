@@ -55,7 +55,7 @@ app.use(bodyParser.urlencoded());
 // app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Route de santé
-app.get("/health", async (req, res) => {
+app.get("api/health", async (req, res) => {
   const dbConnected = await testConnection();
   res.status(dbConnected ? 200 : 503).json({
     status: dbConnected ? "OK" : "ERROR",

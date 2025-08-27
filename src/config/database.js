@@ -13,7 +13,10 @@ if (!connectionString) {
 
 const pool = new Pool({
   connectionString: connectionString,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+  ssl: {
+    rejectUnauthorized: false, // Nécessaire pour Render PostgreSQL
+    require: true
+  }
 });
 
 // Configuration de la pool de connexions PostgreSQL
