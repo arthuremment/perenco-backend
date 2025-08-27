@@ -4,17 +4,29 @@ import dotenv from 'dotenv';
 const { Pool } = pkg;
 dotenv.config();
 
-// Configuration de la pool de connexions PostgreSQL
+const connectionString = process.env.DATABASE_URL;
+
+if (!connectionString) {
+  console.error('❌ DATABASE_URL environment variable is not set');
+  process.exit(1);
+}
+
 const pool = new Pool({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  database: process.env.DB_NAME,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  //max: 20, // Nombre maximum de connexions dans la pool
-  idleTimeoutMillis: 30000, // Temps avant fermeture d'une connexion inactive
-  connectionTimeoutMillis: 2000, // Temps d'attente pour une nouvelle connexion
+  connectionString: connectionString,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
+
+// Configuration de la pool de connexions PostgreSQL
+// const pool = new Pool({
+//   host: process.env.DB_HOST,
+//   port: process.env.DB_PORT,
+//   database: process.env.DB_NAME,
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASSWORD,
+//   //max: 20, // Nombre maximum de connexions dans la pool
+//   idleTimeoutMillis: 30000, // Temps avant fermeture d'une connexion inactive
+//   connectionTimeoutMillis: 2000, // Temps d'attente pour une nouvelle connexion
+// });
 
 // Test de connexion
 pool.on('connect', () => {
