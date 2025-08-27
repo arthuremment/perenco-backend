@@ -41,7 +41,7 @@ app.use(morgan("combined")); // Logging des requêtes
 // Configuration CORS
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://votre-frontend.onrender.com"],
+    origin: ["http://localhost:5173", 'https://perenco-frontend.onrender.com'],
     credentials: true,
     //   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     //   allowedHeaders: ['Content-Type', 'Authorization']
